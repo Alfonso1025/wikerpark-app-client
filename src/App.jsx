@@ -12,6 +12,7 @@ import LoginAdmin from "./admin/LoginAdmin";
 import AdminPanel from "./admin/AdminPanel";
 
 
+
 function App() {
 
 //user authentication state
@@ -46,7 +47,7 @@ useEffect(()=>{
     <>
     <Router>
       <Routes>
-        <Route path="/" exact element={<Home/>}></Route>
+        <Route path="/" exact element={<Home setIsAuthenticated={setIsAuthenticated}/>}></Route>
         <Route path="/login" exact element={
         <>
         {!isAutheticated ? 

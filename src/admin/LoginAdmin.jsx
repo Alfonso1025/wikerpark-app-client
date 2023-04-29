@@ -1,4 +1,6 @@
 import React, {useState} from 'react'
+import Navbar from '../utilities/Navbar'
+import '../styles/LoginAdmin.css'
 
 const LoginAdmin= (props)=>{
 // recibe props
@@ -33,26 +35,33 @@ catch (error) {
 
     return (
 
-        <div>
-            <h1>Login administrator </h1>
+        <>
+            <Navbar></Navbar>
+            <div className='login-admin-wrapper'>
+                <h1 className='login-admin-header'>Login administrator </h1>
+                
+                
+                <form className="form-login-admin" onSubmit={submitLoginForm}>
+                    <input type="email"
+                        placeholder="email"
+                        value={email}
+                        onChange={e=>setEmail(e.target.value)}
+                        className="input-login-admin"/>
+      
+                    <input 
+                        type="password" 
+                        placeholder="password"
+                        value={password}
+                        onChange={e=>setPassword(e.target.value)}
+                        className="input-login-admin"/>
 
-            <form className="form-signin" onSubmit={submitLoginForm}>
-                <input type="email"
-                  placeholder="email"
-                  value={email}
-                  onChange={e=>setEmail(e.target.value)}
-                  className="input-signin"/>
-                  
-                <input 
-                type="password" 
-                 placeholder="password"
-                 value={password}
-                 onChange={e=>setPassword(e.target.value)}
-                 className="input-signin"/>
-                <button className="button-signin">Sign in</button>
-            </form> 
+                    <button className="button-login-admin">Sign in</button>
+                </form> 
+                
+            </div>
+            
         
-        </div>
+        </>
             
     )
 }

@@ -1,0 +1,112 @@
+.admin-panel-wrapper{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    
+
+}
+.admin-panel-body{
+    display: flex;
+    margin-top: 50px;
+    
+}
+
+.users-table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 70vw;
+    margin-left: 35px;
+    margin-bottom: 70px;
+    
+
+  
+}
+
+
+table{
+
+    border-collapse: collapse;
+    box-shadow: 0 5px 5px lightgrey;
+    background-color: white;
+    text-align: center;
+    overflow: hidden;
+    width: 95%;
+    color: rgb(28, 66, 30);
+}
+
+thead{
+    box-shadow: 0 5px 10px lightgrey;
+
+}
+
+th{
+    padding: 1.5rem 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-size: 1rem;
+    font-weight: 900;
+   
+}
+
+td{
+    padding: 1rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+
+}
+tr{
+    height: 3.5rem;
+}
+tr:nth-child(even){
+    background-color: #E0E0E0;
+}
+
+.search-background{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 250px;
+    height: auto;
+    padding: 1rem;
+    margin-right: 10px;
+    background-color: white;
+    color: rgb(28, 66, 30);
+}
+
+.search-header{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+
+.search-background-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.search-background-form input {
+
+    height: 1.5rem;
+    width: 200px;
+    padding: 15px .625rem 5px;
+    border-radius: 3px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    font-size: large;
+    background-color: #E0E0E0;
+    border: 1px solid rgb(28, 66, 30);
+}
+
+.search-background-form button{
+
+    margin-top: 10px;
+    background-color: rgb(28, 49, 29);;
+    height: 2.5rem;
+    color: #E0E0E0;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+}

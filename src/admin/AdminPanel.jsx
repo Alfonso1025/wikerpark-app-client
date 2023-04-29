@@ -1,5 +1,8 @@
 
 import React, {useEffect, useState} from 'react'
+import ViewBackground from './ViewBackground'
+import Navbar from '../utilities/Navbar'
+import '../styles/AdminPanel.css'
 
 
 const AdminPanel= ()=>{
@@ -13,6 +16,11 @@ const [id, setId] = useState('')
 //store image in state variable
 const[image, setImage] = useState('')
 console.log('this is the image',image)
+//manage state to show adminPanel or bacground image
+const [showBackImage, setShowBackImage] = useState(false)
+
+
+
 
 // find admin that is logged in
   async  function getAdmin(){
@@ -59,39 +67,104 @@ const getBackgroundFile = async (e) => {
     try {
         e.preventDefault()
         const response = await fetch(`http://localhost:3003/adminPanel/getbackgroundcheck/${id}`)
-       console.log('this is the response', response)
-        setImage(response)
+        console.log('this is the response ',response)
+        const parseResponse = await response.json()
+       
+        console.log('this is the parseResponse', parseResponse)
+        setImage(parseResponse)
+        setShowBackImage(true)
     } 
     catch (error) {
-        console.log(error)
+        console.log('this is the error',error)
     }
 }
+
+
+
+if(users.length === 0) return 'LOADING'
+
+if(!showBackImage) {
+
     return (
-        <div>
-           Hello bla bla bal {name}
-           This is admin panel
-           <div>
-           {users.map(user=>{
-              return <ul>
-                     <li>{user._id}</li>
-                     <li>{user.userName}</li>
-                     <li>{user.email}</li>
-                     </ul>
-           })}
+        <>
+
+        <Navbar></Navbar>
+        <div className='admin-panel-wrapper'>
+           <div className='admin-panel-header'>
+              Hello bla bla bal {name}
+              This is admin panel
            </div>
-           <div>
-               <h1>View backdround check</h1>
-               <h3>In order to find the background file youa want, please enter the user id in the text box</h3>
-               <form onSubmit={getBackgroundFile}> 
-                   <label>Fin a background file</label>
+          
+        <div className='admin-panel-body'>
+
+           <section className='users-table'>
+           <table >
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>email</th>
+                            <th>User Id</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {users.map(user=>{
+              return  <tr>
+                        
+                        <td>{user.userName}</td>
+                        <td>{user.email}</td>
+                        <td>{user._id}</td>
+                        {user.isCleared === true ? <td>Active</td> : <td>Pending</td>}
+
+                        
+                    </tr>
+                    
+                    
+                    })}
+                        
+                    </tbody>
+  
+            </table>
+       
+           </section>
+           <section className='search-background'>
+               <div className='search-header'>
+               <h3>Find  backdround-check by user Id</h3>
+               
+               </div>
+              
+               <form className='search-background-form'  onSubmit={getBackgroundFile}> 
+                   
                    <input type="text"
-                   value={id} 
-                   onChange={ e => setId(e.target.value) }/>
+                        placeholder='User Id'
+                        value={id} 
+                        onChange={ e => setId(e.target.value) }/>
+                   
                 <button>Find</button>
                </form>
-               <img src= {`adminPanel/getbackgroundcheck/${image}`} alt=''/>
-           </div>
+             
+           </section>
+
+        </div> 
+           
         </div>
+        </>
     )
+
+}
+
+else if(showBackImage){
+    return(
+        <div>
+            
+            <ViewBackground image={image}/> 
+        </div>
+        
+    )
+    
+}
+
+    
 }
 export default AdminPanel

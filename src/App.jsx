@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-
+import {QueryClientProvider, QueryClient} from 'react-query'
 import Login from "./user/Login"
 import RegisterUser from "./user/RegisterUser"
 import Dashboard from "./user//Dashboard"
@@ -10,32 +10,43 @@ import BackgroundCheck from "./user/BackgroundCheck";
 import RegistAdmin from "./admin/RegistAdmin";
 import LoginAdmin from "./admin/LoginAdmin";
 import AdminPanel from "./admin/AdminPanel";
+import './styles/App.css'
 
+const queryClient = new QueryClient()
 
 
 function App() {
 
 //user authentication state
 const [isAutheticated, setIsAuthenticated] = useState(false)
+const [isAdminAunthenticated, setIsAdminAuthenticated] = useState(false)
+const [isAdminOpen, setIsAdminOpen] = useState(false)
 
+const remoteServer = process.env.REACT_APP_REMOTE_SERVER
+const localServer = 'http://localhost:3000'
 
 //check if there is an authorization on token on the local storage
 
 const isVerified= async()=>{
 try {
-  const response= await fetch('http://localhost:3003/users/verified',{
+
+  const response= await fetch(`${remoteServer}/users/verified`,{
     method:'GET',
     headers:{token:localStorage.token}
   })
-  //the response is a boolean
-  //if there was a token sent to the authorization middleware
-  //the server return true otherwise returns false
+  
   const verified=await response.json()
   console.log('this is verified',verified)
-  verified===true ? setIsAuthenticated(true) : setIsAuthenticated(false)
+  if(verified.code === 200){
+    verified.data === true ? setIsAuthenticated(true) : setIsAuthenticated(false)
+  }
+console.log('is user authenticated: ',isAutheticated)
+
 
 } catch (err) {
-  console.log(err)
+  console.log('this is the error',err)
+
+
 }
 }
 useEffect(()=>{
@@ -45,102 +56,50 @@ useEffect(()=>{
   return(
       
     <>
-    <Router>
-      <Routes>
-        <Route path="/" exact element={<Home setIsAuthenticated={setIsAuthenticated}/>}></Route>
-        <Route path="/login" exact element={
-        <>
-        {!isAutheticated ? 
-          
-          <Login setIsAuthenticated={setIsAuthenticated}/>
-        
-        : <Dashboard setIsAuthenticated={setIsAuthenticated}/> }
-        </>
+    
+  <QueryClientProvider client={queryClient}>
+  {
+    !isAdminOpen ?
+    ( 
+      !isAutheticated ?
+      <Router>
+        <Routes>
+          <Route path = "/" exact element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdminOpen={setIsAdminOpen}/>}/>
+          <Route path = "/registeruser" exact element={<RegisterUser setIsAdminOpen={setIsAdminOpen}/>} />
+        </Routes>
+      </Router>
+       :
+       <Router>
+         <Routes>
+           <Route path="/" exact element={<Home setIsAuthenticated={setIsAuthenticated}/>}></Route>
+           <Route path="/dashboard" exact element={<Dashboard setIsAuthenticated={setIsAuthenticated}/>}></Route> 
+           <Route path="/uploadbackground" exact element= {<BackgroundCheck/>}></Route>
+           <Route path="*" exact element={<NotFound/>}></Route>
+         </Routes>   
+       </Router>
+    )
+    :
+    (
+      !isAdminAunthenticated ?
+     <Router>
+       <Routes>
+        <Route path="/" exact element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route path="/admin/register" exact element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+       </Routes>  
+     </Router>   
+      :
+      <Router>
+        <Routes>
+         <Route path="/admin/panel" exact element={<AdminPanel setIsAuthenticated={setIsAuthenticated}/>}></Route>
+       </Routes>
+      </Router> 
+    )
+       
+  }
+      
+</QueryClientProvider>
 
-        } >
-
-        </Route>
-
-        <Route path="/registeruser" exact element={
-          <>
-          {!isAutheticated ?
-
-          <RegisterUser setIsAuthenticated={setIsAuthenticated}/>
-          :
-          <Login setIsAuthenticated={setIsAuthenticated}/>
-
-          }
-          </>
-        }>
-
-        </Route>
-        <Route path="/dashboard" exact element={
-         <>
-         {isAutheticated ?
-
-          <Dashboard setIsAuthenticated={setIsAuthenticated}/>
-          :
-          <Login setIsAuthenticated={setIsAuthenticated}/>
-
-         }
-         </>
-
-        }>
-
-        </Route>
-        
-
-
-
-        <Route path="/admin/login" exact element={
-        <>
-        {!isAutheticated ? 
-          
-          <LoginAdmin setIsAuthenticated={setIsAuthenticated}/>
-        
-        : <AdminPanel setIsAuthenticated={setIsAuthenticated}/> }
-        </>
-
-        } >
-
-        </Route>
-
-        <Route path="/admin/register" exact element={
-          <>
-          {!isAutheticated ?
-
-          <RegistAdmin setIsAuthenticated={setIsAuthenticated}/>
-          :
-          <LoginAdmin setIsAuthenticated={setIsAuthenticated}/>
-
-          }
-          </>
-        }>
-
-        </Route>
-        <Route path="/admin/panel" exact element={
-         <>
-         {isAutheticated ?
-
-          <AdminPanel setIsAuthenticated={setIsAuthenticated}/>
-          :
-          <LoginAdmin setIsAuthenticated={setIsAuthenticated}/>
-
-         }
-         </>
-
-        }>
-
-        </Route>
-
-
-
-        <Route path="*" exact element={<NotFound/>}></Route>
-        
-        <Route path="/uploadbackground" exact element= {<BackgroundCheck/>}></Route>
-      </Routes>
-    </Router> 
-    </>
+</>
   )
 }
 

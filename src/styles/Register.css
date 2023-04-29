@@ -1,0 +1,39 @@
+.register-wrapper{
+    width: 100vw;
+    height: 100vw;
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+.form-register{
+
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    align-self: center;
+    margin-top: 200px;
+    
+
+}
+
+.input-register{
+    height: 1.5rem;
+    width: 300px;
+    padding: 15px .625rem 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.button-register{
+    margin-top: 30px;
+    opacity: 0.8;
+    background-color: rgb(28, 49, 29);
+    height: 2.5rem;
+    color: #E0E0E0;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: large;
+}

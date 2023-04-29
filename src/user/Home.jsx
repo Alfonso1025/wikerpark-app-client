@@ -1,8 +1,13 @@
+import Navbar from "../utilities/Navbar"
 function Home(props){
    //recibe props
    const setIsAuthenticated = props.setIsAuthenticated
     return(
-        <div>This is home
+        <div>
+          
+        <Navbar></Navbar>
+
+        <h1>This is home</h1>
 
 <button 
             onClick={(e)=>{

@@ -69,7 +69,7 @@ console.log('is user authenticated: ',isAutheticated)
       !isAutheticated ?
       <Router>
         <Routes>
-          <Route path = "/" exact element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdminOpen={setIsAdminOpen}/>}/>
+          <Route path = "/login" exact element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdminOpen={setIsAdminOpen}/>}/>
           <Route path = "/registeruser" exact element={<RegisterUser setIsAdminOpen={setIsAdminOpen}/>} />
         </Routes>
       </Router>

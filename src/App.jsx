@@ -5,7 +5,7 @@ import RegisterUser from "./user/RegisterUser"
 import Dashboard from "./user//Dashboard"
 import Home from "./user/Home";
 import NotFound from "./NotFound";
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom'
 import BackgroundCheck from "./user/BackgroundCheck";
 import RegistAdmin from "./admin/RegistAdmin";
 import LoginAdmin from "./admin/LoginAdmin";
@@ -16,6 +16,8 @@ const queryClient = new QueryClient()
 
 
 function App() {
+
+ 
 
 //user authentication state
 const [isAutheticated, setIsAuthenticated] = useState(false)
@@ -29,7 +31,8 @@ const localServer = 'http://localhost:3000'
 
 const isVerified= async()=>{
 try {
-
+  console.log('this is the server: ',remoteServer)
+  console.log(localStorage.token)
   const response= await fetch(`${remoteServer}/users/verified`,{
     method:'GET',
     headers:{token:localStorage.token}
@@ -49,15 +52,17 @@ console.log('is user authenticated: ',isAutheticated)
 
 }
 }
-useEffect(()=>{
+ useEffect(()=>{
   isVerified()
-})
+}) 
 
   return(
       
     <>
+
+   
     
-  <QueryClientProvider client={queryClient}>
+   <QueryClientProvider client={queryClient}>
   {
     !isAdminOpen ?
     ( 
@@ -97,7 +102,7 @@ useEffect(()=>{
        
   }
       
-</QueryClientProvider>
+</QueryClientProvider> 
 
 </>
   )

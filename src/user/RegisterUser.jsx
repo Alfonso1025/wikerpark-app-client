@@ -93,10 +93,10 @@ try {
 
 
 const goToLogin = ()=>{
-    navigate('/');
+    navigate('login');
 }
 const goToAdmin =()=>{
-    setIsAdminOpen(true)
+    navigate('loginadmin')
 }
 
     return (

@@ -5,7 +5,7 @@ import RegisterUser from "./user/RegisterUser"
 import Dashboard from "./user//Dashboard"
 import Home from "./user/Home";
 import NotFound from "./NotFound";
-import {BrowserRouter as Router, Routes, Route, useLocation} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, useNavigate, Navigate, Outlet} from 'react-router-dom'
 import BackgroundCheck from "./user/BackgroundCheck";
 import RegistAdmin from "./admin/RegistAdmin";
 import LoginAdmin from "./admin/LoginAdmin";
@@ -25,7 +25,14 @@ const [isAdminAunthenticated, setIsAdminAuthenticated] = useState(false)
 const [isAdminOpen, setIsAdminOpen] = useState(false)
 
 const remoteServer = process.env.REACT_APP_REMOTE_SERVER
-const localServer = 'http://localhost:3000'
+
+const ProtectedRoute = ({ isAuth, redirectPath}) => {
+  if (!isAuth) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return <Outlet />;
+};
 
 //check if there is an authorization on token on the local storage
 
@@ -59,48 +66,26 @@ console.log('is user authenticated: ',isAutheticated)
   return(
       
     <>
-
-   
+ <QueryClientProvider client={queryClient}>
+ 
     
-   <QueryClientProvider client={queryClient}>
-  {
-    !isAdminOpen ?
-    ( 
-      !isAutheticated ?
-      <Router>
-        <Routes>
-          <Route path = "/login" exact element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdminOpen={setIsAdminOpen}/>}/>
-          <Route path = "/registeruser" exact element={<RegisterUser setIsAdminOpen={setIsAdminOpen}/>} />
-        </Routes>
-      </Router>
-       :
-       <Router>
-         <Routes>
-           <Route path="/" exact element={<Home setIsAuthenticated={setIsAuthenticated}/>}></Route>
-           <Route path="/dashboard" exact element={<Dashboard setIsAuthenticated={setIsAuthenticated}/>}></Route> 
-           <Route path="/uploadbackground" exact element= {<BackgroundCheck/>}></Route>
-           <Route path="*" exact element={<NotFound/>}></Route>
-         </Routes>   
-       </Router>
-    )
-    :
-    (
-      !isAdminAunthenticated ?
-     <Router>
-       <Routes>
-        <Route path="/" exact element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
-        <Route path="/admin/register" exact element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
-       </Routes>  
-     </Router>   
-      :
-      <Router>
-        <Routes>
-         <Route path="/admin/panel" exact element={<AdminPanel setIsAuthenticated={setIsAuthenticated}/>}></Route>
-       </Routes>
-      </Router> 
-    )
+ <Routes>
+        <Route index element={<Login />} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="registeruser" element={<RegisterUser/>} />
+        <Route element={<ProtectedRoute isAuth={isAutheticated} redirectPath={'/login'} />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="backgroundcheck" element={<BackgroundCheck />} />
+        </Route>
+        <Route path="/admin/login"  element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route path="/admin/register"  element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route element={<ProtectedRoute isAuth={isAdminAunthenticated} redirectPath={'/admin/login'} />}>
+              <Route path="/admin/panel" exact element={<AdminPanel setIsAdminAuthenticated={setIsAdminAuthenticated}/>}></Route>
+         </Route>
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+  </Routes>
        
-  }
+  
       
 </QueryClientProvider> 
 

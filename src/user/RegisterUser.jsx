@@ -79,7 +79,7 @@ try {
         return 
     }
     setIsSignUpSuccesfull(true)
-    setTimeout(()=>{navigate('/')}, 3000)
+    setTimeout(()=>{navigate('login')}, 3000)
     
 }
  catch (error) {

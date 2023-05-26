@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 const RegistAdmin= (props)=>{
-
+const remoteServer = process.env.REACT_APP_REMOTE_SERVER
 //recibe props
 const setIsAuthenticated = props.setIsAuthenticated
 
@@ -15,7 +15,7 @@ const submitAdminToServer = async (e) => {
 e.preventDefault()
 try {
     const body= {adminName,email,password}
-    const user = await fetch('http://localhost:3003/admin/registerAdmin',{
+    const user = await fetch(`${remoteServer}/admin/registerAdmin`,{
            method:'POST',
            headers:{"Content-Type":"application/json"},
            body:JSON.stringify(body)

@@ -3,6 +3,8 @@ import Navbar from '../utilities/Navbar'
 import '../styles/LoginAdmin.css'
 
 const LoginAdmin= (props)=>{
+
+const remoteServer = process.env.REACT_APP_REMOTE_SERVER
 // recibe props
 const setIsAuthenticated = props.setIsAuthenticated
 
@@ -14,7 +16,7 @@ const submitLoginForm = async(e)=>{
 e.preventDefault()
 const body = {email, password}
 try {
-  const response = await  fetch('http://localhost:3003/admin/loginAdmin',{
+  const response = await  fetch(`${remoteServer}/admin/loginAdmin`,{
       method:'POST',
       headers:{'content-type':'application/json'},
       body: JSON.stringify(body)

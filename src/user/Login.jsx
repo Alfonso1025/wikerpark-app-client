@@ -73,6 +73,7 @@ const submitLoginForm = async(e)=>{
         console.log(loggedUser)
         localStorage.setItem('token', loggedUser.data.token)
         setIsAuthenticated(true)
+        navigate('dashboard')
 
   
    } 
@@ -82,10 +83,10 @@ const submitLoginForm = async(e)=>{
 }
 
 const goToSignUp = ()=>{
-    navigate('/registeruser');
+    navigate('registeruser');
 }
 const goToAdmin =()=>{
-    setIsAdminOpen(true)
+    navigate('adminlogin')
 }
 
     return (

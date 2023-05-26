@@ -17,7 +17,7 @@ const queryClient = new QueryClient()
 
 function App() {
 
- 
+ const navigate = useNavigate()
 
 //user authentication state
 const [isAutheticated, setIsAuthenticated] = useState(false)
@@ -38,7 +38,7 @@ const ProtectedRoute = ({ isAuth, redirectPath}) => {
 
 const isVerified= async()=>{
 try {
-  console.log('this is the server: ',remoteServer)
+  
   console.log(localStorage.token)
   const response= await fetch(`${remoteServer}/users/verified`,{
     method:'GET',
@@ -48,8 +48,12 @@ try {
   const verified=await response.json()
   console.log('this is verified',verified)
   if(verified.code === 200){
-    verified.data === true ? setIsAuthenticated(true) : setIsAuthenticated(false)
-  }
+    if(verified.data === true){
+      setIsAuthenticated(true)
+      navigate('dashboard')
+    }
+  } 
+ 
 console.log('is user authenticated: ',isAutheticated)
 
 
@@ -61,7 +65,7 @@ console.log('is user authenticated: ',isAutheticated)
 }
  useEffect(()=>{
   isVerified()
-}) 
+}, [])  
 
   return(
       
@@ -70,19 +74,19 @@ console.log('is user authenticated: ',isAutheticated)
  
     
  <Routes>
-        <Route index element={<Login />} />
-        <Route path="/login" element={<Login/>} />
+        <Route index element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route path="login" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
         <Route path="registeruser" element={<RegisterUser/>} />
-        <Route element={<ProtectedRoute isAuth={isAutheticated} redirectPath={'/login'} />}>
+        <Route element={<ProtectedRoute isAuth={isAutheticated} redirectPath={'login'} />}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="backgroundcheck" element={<BackgroundCheck />} />
         </Route>
-        <Route path="/admin/login"  element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
-        <Route path="/admin/register"  element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
-        <Route element={<ProtectedRoute isAuth={isAdminAunthenticated} redirectPath={'/admin/login'} />}>
-              <Route path="/admin/panel" exact element={<AdminPanel setIsAdminAuthenticated={setIsAdminAuthenticated}/>}></Route>
+        <Route path="adminlogin"  element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route path="adminregister"  element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route element={<ProtectedRoute isAuth={isAdminAunthenticated} redirectPath={'adminlogin'} />}>
+              <Route path="adminpanel" exact element={<AdminPanel setIsAdminAuthenticated={setIsAdminAuthenticated}/>}></Route>
          </Route>
-        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+        <Route path="*" element={<p>There's nothing here: 404!</p>} /> 
   </Routes>
        
   

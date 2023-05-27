@@ -50,7 +50,7 @@ try {
   if(verified.code === 200){
     if(verified.data === true){
       setIsAuthenticated(true)
-      navigate('dashboard')
+      navigate('/dashboard')
     }
   } 
  
@@ -75,16 +75,16 @@ console.log('is user authenticated: ',isAutheticated)
     
  <Routes>
         <Route index element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
-        <Route path="login" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
-        <Route path="registeruser" element={<RegisterUser/>} />
+        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route path="/registeruser" element={<RegisterUser/>} />
         <Route element={<ProtectedRoute isAuth={isAutheticated} redirectPath={'login'} />}>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="backgroundcheck" element={<BackgroundCheck />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/backgroundcheck" element={<BackgroundCheck />} />
         </Route>
-        <Route path="adminlogin"  element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
-        <Route path="adminregister"  element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route path="/adminlogin"  element={<LoginAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
+        <Route path="/adminregister"  element={<RegistAdmin setIsAuthenticated={setIsAuthenticated}/>}></Route>
         <Route element={<ProtectedRoute isAuth={isAdminAunthenticated} redirectPath={'adminlogin'} />}>
-              <Route path="adminpanel" exact element={<AdminPanel setIsAdminAuthenticated={setIsAdminAuthenticated}/>}></Route>
+              <Route path="/adminpanel" exact element={<AdminPanel setIsAdminAuthenticated={setIsAdminAuthenticated}/>}></Route>
          </Route>
         <Route path="*" element={<p>There's nothing here: 404!</p>} /> 
   </Routes>

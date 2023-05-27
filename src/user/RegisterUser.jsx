@@ -93,10 +93,10 @@ try {
 
 
 const goToLogin = ()=>{
-    navigate('login');
+    navigate('/login');
 }
 const goToAdmin =()=>{
-    navigate('loginadmin')
+    navigate('/adminlogin')
 }
 
     return (

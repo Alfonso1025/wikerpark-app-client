@@ -12,6 +12,7 @@ import CheckMark from './CheckMark.jsx'
 const Dashboard= (props)=>{
 
 const remoteServer = process.env.REACT_APP_REMOTE_SERVER
+const localServer = process.env.REACT_APP_LOCAL_SERVER
 //recibe props
 const setIsAuthenticated = props.setIsAuthenticated
 // local state

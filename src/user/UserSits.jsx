@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import moment from 'moment'
 import openIcon from '../media/open3.png'
 import closeIcon from '../media/close1.png'
+import {AiOutlineCloseCircle} from 'react-icons/ai'
 
-import '../styles/BabySittingPost.css'
+import '../styles/BabySittingPost.css'  
 
 const UserSits = (props)=>{
 
@@ -22,7 +23,7 @@ const currentDate = new Date()
 
 //function definitions
 
-
+const localServer = process.env.REACT_APP_LOCAL_SERVER
 const getUserSits = async ()=>{
     try {
         const response = await fetch(`${remoteServer}/sittingpost/sitsbyid`,{
@@ -130,7 +131,11 @@ return (
     <div className='individual-sits-header'>
 
         <h1>Manage requests</h1>
-        <img src={closeIcon} alt=""  className='close-icon' onClick={()=>setOpenUserSits(false)}/>
+        <div onClick={()=>setOpenUserSits(false)}>
+            <AiOutlineCloseCircle  size={50} style={{ color: 'rgb(28, 49, 29)' }}/>
+        </div>
+        
+        {/* <img src={closeIcon} alt=""  className='close-icon' onClick={()=>setOpenUserSits(false)}/> */}
     </div>
     {
         sitsUser.length === 0 &&

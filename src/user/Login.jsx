@@ -6,6 +6,7 @@ import logo from '../media/WikerParkLogo.png'
 
 const Login= (props)=>{
 const remoteServer = process.env.REACT_APP_REMOTE_SERVER
+const localServer = process.env.REACT_APP_LOCAL_SERVER
 const navigate = useNavigate();
 // recibe props
 const setIsAuthenticated = props.setIsAuthenticated

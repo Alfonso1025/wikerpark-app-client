@@ -11,6 +11,7 @@ const RegisterUser = (props) => {
 
 const navigate = useNavigate();
 const remoteServer = process.env.REACT_APP_REMOTE_SERVER
+const localServer = process.env.REACT_APP_LOCAL_SERVER
 
 //recibe props
 

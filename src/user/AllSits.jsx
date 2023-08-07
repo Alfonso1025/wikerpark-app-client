@@ -5,6 +5,7 @@ import '../styles/BabySittingPost.css'
 const AllSits = (props)=>{
 
 const remoteServer = process.env.REACT_APP_REMOTE_SERVER
+const localServer = process.env.REACT_APP_LOCAL_SERVER
 //recibe props
 const name = props.name
 

@@ -1,0 +1,15 @@
+.footer-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 40vh;
+    background-color: rgb(156, 196, 159);;
+    opacity: .9;
+}
+.footer-wrapper p{
+    font-size: large;
+    font-weight: 800;
+    color: rgb(36, 40, 37);
+}

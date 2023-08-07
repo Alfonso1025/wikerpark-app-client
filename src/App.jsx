@@ -25,6 +25,7 @@ const [isAdminAunthenticated, setIsAdminAuthenticated] = useState(false)
 const [isAdminOpen, setIsAdminOpen] = useState(false)
 
 const remoteServer = process.env.REACT_APP_REMOTE_SERVER
+const localServer = process.env.REACT_APP_LOCAL_SERVER
 
 const ProtectedRoute = ({ isAuth, redirectPath}) => {
   if (!isAuth) {
@@ -38,7 +39,7 @@ const ProtectedRoute = ({ isAuth, redirectPath}) => {
 
 const isVerified= async()=>{
 try {
-  
+
   console.log(localStorage.token)
   const response= await fetch(`${remoteServer}/users/verified`,{
     method:'GET',
@@ -75,8 +76,10 @@ console.log('is user authenticated: ',isAutheticated)
     
  <Routes>
         <Route index element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
+        <Route path="/home" element={<Home />}/>
         <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>} />
         <Route path="/registeruser" element={<RegisterUser/>} />
+        
         <Route element={<ProtectedRoute isAuth={isAutheticated} redirectPath={'login'} />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/backgroundcheck" element={<BackgroundCheck />} />
@@ -86,7 +89,8 @@ console.log('is user authenticated: ',isAutheticated)
         <Route element={<ProtectedRoute isAuth={isAdminAunthenticated} redirectPath={'adminlogin'} />}>
               <Route path="/adminpanel" exact element={<AdminPanel setIsAdminAuthenticated={setIsAdminAuthenticated}/>}></Route>
          </Route>
-        <Route path="*" element={<p>There's nothing here: 404!</p>} /> 
+        <Route path="*" element={<p>There's nothing here: 404!</p>} />
+         
   </Routes>
        
   

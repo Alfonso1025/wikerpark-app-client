@@ -40,7 +40,7 @@ catch (error) {
         <>
             <Navbar></Navbar>
             <div className='login-admin-wrapper'>
-                <h1 className='login-admin-header'>Login administrator </h1>
+                <h1 className='login-admin-header'> Admin login </h1>
                 
                 
                 <form className="form-login-admin" onSubmit={submitLoginForm}>

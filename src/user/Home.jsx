@@ -23,6 +23,23 @@ function Home(props){
         <div className="home-main-container">
         <Navbar></Navbar>
         <Header></Header>
+        
+        <div className="Rules-wrapper">
+
+            <h1>Rules</h1>
+            <h2> Becoming a member</h2>
+            <p>You must be a Wiker Park neighbor</p>
+            <p>Sign up for an account</p>
+            <p>Submit a criminal background check</p>
+            <p>Fill up the questionary</p>
+            <p>Attend an onboarding meeting</p>
+
+            <h2>How it works</h2>
+            <p>Once you are a member, start taking sits posted on the app to earn points</p>
+            <p>When you have enough points, post a sit</p>
+            <p>Repeat</p>
+
+        </div>
         <div className="home-content-wrapper">
             <div className="home-text">
                 <p>{text1}</p>
@@ -33,26 +50,11 @@ function Home(props){
         </div>
          
         <div className="cards-wrapper">
-           {/*  <div className="card">
-                <h1>1</h1>
-                <h2>Pass a background Check</h2>
-            </div>
-            <div className="card">
-                <h1>2</h1>
-                <h2>Attend the monthly meeting</h2>
-            </div>
-            <div className="card">
-                <h1>3</h1>
-                <h2>Take sits and start earning points</h2>
-            </div>
-            <div className="card">
-                <h1>4</h1>
-                <h2>Request a sit and go on a date!</h2>
-            </div>
-             */}
+           
         </div>
         
         <div className="home-content-wrapper">
+
         
             <div className="home-image">
                 <img src={img2} alt=""  className="img"/>

@@ -10,6 +10,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;   
+   
 }
 
 .logo{
@@ -58,6 +59,7 @@
 .goTo-item{
     display: flex;
     flex-direction: column;
+
    
 }
 .goTo-p{
@@ -77,9 +79,19 @@
 }
 
 @media only screen and (max-width: 500px) {
+    .logo{
+        margin-bottom: 3rem;
+    }
     .goTo-container {
-      width: 100%;
+      width: 80%;
+     
     
     }
+    .goTo-p{
+        font-weight: 900;
+        font-size: 14px;
+       
+    }
+
     
   }
